@@ -2,12 +2,13 @@
 import Link from "next/link";
 import AuthorForm from "@/components/authors/authorForm";
 import { useAuthorsContext } from "@/lib/context/AuthorsContext";
-import { useMemo } from "react";
+import { useMemo, use } from "react";
 import { PacmanLoader } from "react-spinners";
 
-export default function EditAuthorPage({ params }: { params: { id: string } }) {
+export default function EditAuthorPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id: paramId } = use(params);
     const { authors, loading, error } = useAuthorsContext();
-    const id = Number(params.id);
+    const id = Number(paramId);
 
     const author = useMemo(
         () => (Number.isFinite(id) ? authors.find((a) => a.id === id) : undefined),
