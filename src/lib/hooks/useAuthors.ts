@@ -25,12 +25,17 @@ export default function useAuthors() {
         return () => { mounted = false; };
     }, []); 
 
-    // Crud actions 
+    // CRUD 
     const createAuthor = useCallback(async (payload: Omit<Author,"id">) => {
         const created = await apiCreateAuthor(payload);
         setAuthors((prev) => [created, ...prev]);
         return created;
     },[])
+
+    const createAuthorLocal = (author: Author): Author => {
+        setAuthors((prev) => [author, ...prev]);
+        return author;
+    };
 
     const updateAuthor = useCallback(async (id: number, payload: Omit<Author,"id">) => {
         const updated = await apiUpdateAuthor(id, payload);
@@ -38,10 +43,19 @@ export default function useAuthors() {
         return updated;
     },[])
 
-    const deleteAuthor = useCallback(async (id:number) => {
+    const updateAuthorLocal = (id: number, author: Author): Author => {
+        setAuthors((prev) => prev.map(a => a.id === id? author: a))
+        return author
+    }
+    const deleteAuthorAPI = useCallback(async (id:number) => {
         await apiDeleteAuthor(id);
         setAuthors((prev) => prev.filter(a => (a.id !== id)))
     },[])
+
+    const deleteAuthor = (id: number): boolean => {
+        setAuthors((prev) => prev.filter(a => a.id !== id))
+        return true;
+    }
 
     return { authors, loading, error, createAuthor, updateAuthor, deleteAuthor};
 

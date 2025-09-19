@@ -35,3 +35,8 @@ export async function apiDeleteAuthor(id:number){
     if(!res.ok) throw new Error("Error deleting author")
     return true;
 }
+
+function dateToEpochMs(value: string): number {
+  const [y, m, d] = value.split("-").map(Number);
+  return Date.UTC(y, m - 1, d);
+}

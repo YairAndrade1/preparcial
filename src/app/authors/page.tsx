@@ -2,16 +2,15 @@
 import Link from "next/link";
 import AuthorCard from "@/components/authors/authorCard";
 import { useAuthorsContext } from "@/lib/context/AuthorsContext";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function AuthorsPage() {
     const { authors, loading, error } = useAuthorsContext();
 
     if (loading)
         return (
-            <div className="mx-auto max-w-6xl px-4 py-16">
-                <p className="text-center text-sm text-gray-600 animate-pulse">
-                    Loading Authors…
-                </p>
+            <div className="fixed inset-0 flex items-center justify-center ">
+                <PacmanLoader size={50} color={"#000000"} loading={true} />
             </div>
         );
 

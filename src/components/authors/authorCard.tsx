@@ -10,7 +10,7 @@ export default function AuthorCard({ author }: { author: Author }) {
     const [imgSrc, setImgSrc] = useState(author.image || PLACEHOLDER_IMG);
 
     return (
-        <div className="mx-auto w-full max-w-md rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md">
+        <div className="mx-auto w-full max-w-md rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md flex flex-col h-full">
             <div className="mx-auto size-28 overflow-hidden rounded-full ring-2 ring-gray-200">
                 <img
                     className="size-full object-cover"
@@ -28,7 +28,7 @@ export default function AuthorCard({ author }: { author: Author }) {
                     {author.birthDate || "—"}
                 </span>
             </div>
-            <p className="mt-3 text-center text-sm leading-relaxed text-gray-700">
+            <p className="mt-3 flex-1 text-center text-sm leading-relaxed text-gray-700">
                 {author.description || "No description"}
             </p>
             <div className="mt-5 flex items-center justify-center gap-3">

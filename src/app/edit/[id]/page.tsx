@@ -3,6 +3,7 @@ import Link from "next/link";
 import AuthorForm from "@/components/authors/authorForm";
 import { useAuthorsContext } from "@/lib/context/AuthorsContext";
 import { useMemo } from "react";
+import { PacmanLoader } from "react-spinners";
 
 export default function EditAuthorPage({ params }: { params: { id: string } }) {
     const { authors, loading, error } = useAuthorsContext();
@@ -31,10 +32,8 @@ export default function EditAuthorPage({ params }: { params: { id: string } }) {
 
     if (loading) {
         return (
-            <div className="mx-auto max-w-lg px-4 py-16">
-                <p className="text-center text-sm text-gray-600 animate-pulse" role="status" aria-live="polite">
-                    Loading author…
-                </p>
+            <div className="fixed inset-0 flex items-center justify-center ">
+                <PacmanLoader size={50} color={"#000000"} loading={true} />
             </div>
         );
     }

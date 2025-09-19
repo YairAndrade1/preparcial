@@ -82,8 +82,7 @@ export default function AuthorForm({ author }: { author?: Author }) {
                     type="date"
                     value={birthDate}
                     onChange={(e) => setBirthDate(e.target.value)}
-                    className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                />
+                    className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
             <div className="mb-4">
                 <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -96,7 +95,9 @@ export default function AuthorForm({ author }: { author?: Author }) {
                     placeholder="Write a short description…"
                     className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
-            {err && <p className="mb-3 text-sm font-medium text-red-600">{err}</p>}
+            {err && <p className="mb-3 text-sm font-medium text-red-600">
+                {err}
+            </p>}
             <div className="mt-2 flex items-center justify-end gap-2">
                 <button
                     type="button"
