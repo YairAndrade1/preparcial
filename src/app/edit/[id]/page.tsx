@@ -21,8 +21,7 @@ export default function EditAuthorPage({ params }: { params: { id: string } }) {
                     <p className="mt-2 text-sm text-gray-600">Please check the URL.</p>
                     <Link
                         href="/authors"
-                        className="mt-5 inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40"
-                    >
+                        className="mt-5 inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40">
                         Back to authors
                     </Link>
                 </div>
@@ -43,7 +42,9 @@ export default function EditAuthorPage({ params }: { params: { id: string } }) {
     if (error) {
         return (
             <div className="mx-auto max-w-lg px-4 py-16">
-                <p className="text-center font-medium text-red-600">Error: {error}</p>
+                <p className="text-center font-medium text-red-600">
+                    Error: {error}
+                </p>
             </div>
         );
     }
@@ -59,14 +60,12 @@ export default function EditAuthorPage({ params }: { params: { id: string } }) {
                     <div className="mt-5 flex items-center justify-center gap-2">
                         <Link
                             href="/authors"
-                            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
-                        >
+                            className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300">
                             Back to authors
                         </Link>
                         <Link
                             href="/crear"
-                            className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40"
-                        >
+                            className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40">
                             Create new author
                         </Link>
                     </div>
