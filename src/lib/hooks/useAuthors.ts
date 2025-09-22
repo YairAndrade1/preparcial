@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Author } from "../types/author";
-import { apiGetAuthors, apiCreateAuthor, apiUpdateAuthor, apiDeleteAuthor } from "../api/authors";
+import { apiGetAuthors } from "../api/authors";
 
 export default function useAuthors() {
     const[authors, setAuthors] = useState<Author[]>([]);
@@ -15,7 +15,11 @@ export default function useAuthors() {
             try {
                 setLoading(true);
                 const data = await apiGetAuthors();
-                if (mounted) setAuthors(data);
+                const authorsWithFavorites = data.map((author: Author) => ({
+                    ...author,
+                    isFavorite: author.isFavorite || false
+                }));
+                if (mounted) setAuthors(authorsWithFavorites);
             } catch (e: any) {
                 if(mounted) setError(e.message);
             } finally {
@@ -26,37 +30,40 @@ export default function useAuthors() {
     }, []); 
 
     // CRUD 
-    const createAuthor = useCallback(async (payload: Omit<Author,"id">) => {
-        const created = await apiCreateAuthor(payload);
-        setAuthors((prev) => [created, ...prev]);
-        return created;
-    },[])
-
-    const createAuthorLocal = (author: Author): Author => {
-        setAuthors((prev) => [author, ...prev]);
-        return author;
+    const createAuthor = async (authorData: Omit<Author, "id">): Promise<Author> => {
+        const newId = Date.now();
+        const newAuthor: Author = {
+            ...authorData,
+            id: newId,
+            isFavorite: false
+        };
+        setAuthors((prev) => [newAuthor, ...prev]);
+        return newAuthor;
     };
 
-    const updateAuthor = useCallback(async (id: number, payload: Omit<Author,"id">) => {
-        const updated = await apiUpdateAuthor(id, payload);
-        setAuthors((prev) => prev.map(a => (a.id === id? updated : a)));
-        return updated;
-    },[])
-
-    const updateAuthorLocal = (id: number, author: Author): Author => {
-        setAuthors((prev) => prev.map(a => a.id === id? author: a))
-        return author
+    const updateAuthor = async (id: number, authorData: Omit<Author, "id">): Promise<Author> => {
+        const updatedAuthor: Author = {
+            ...authorData,
+            id,
+            isFavorite: authors.find(a => a.id === id)?.isFavorite || false
+        };
+        setAuthors((prev) => prev.map(a => a.id === id ? updatedAuthor : a));
+        return updatedAuthor;
     }
-    const deleteAuthorAPI = useCallback(async (id:number) => {
-        await apiDeleteAuthor(id);
-        setAuthors((prev) => prev.filter(a => (a.id !== id)))
-    },[])
 
     const deleteAuthor = (id: number): boolean => {
-        setAuthors((prev) => prev.filter(a => a.id !== id))
+        setAuthors((prev) => prev.filter(a => a.id !== id));
         return true;
     }
 
-    return { authors, loading, error, createAuthor, updateAuthor, deleteAuthor};
+    const toggleFavorite = (id: number) => {
+        setAuthors((prev) => prev.map(a => a.id === id ? { ...a, isFavorite: !a.isFavorite } : a));
+    }
+
+    const getFavoriteAuthors = () => {
+        return authors.filter(a => a.isFavorite);
+    }
+
+    return { authors, loading, error, createAuthor, updateAuthor, deleteAuthor, toggleFavorite, getFavoriteAuthors };
 
 }

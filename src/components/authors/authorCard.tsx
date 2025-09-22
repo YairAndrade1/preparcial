@@ -1,11 +1,13 @@
 'use client'
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuthorsContext } from "@/lib/context/AuthorsContext";
 import type { Author } from "@/lib/types/author";
 
 const PLACEHOLDER_IMG = "https://placehold.co/240x240?text=No+Image";
 
 export default function AuthorCard({ author }: { author: Author }) {
+    const router = useRouter();
     const { deleteAuthor, toggleFavorite } = useAuthorsContext();
     const [imgSrc, setImgSrc] = useState(author.image || PLACEHOLDER_IMG);
 
@@ -68,7 +70,7 @@ export default function AuthorCard({ author }: { author: Author }) {
                     className=" inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white p-2.5 text-gray-700 transition-colors hover:bg-gray-50 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
                     aria-label={`Edit ${author.name}`}
                     title="Edit"
-                    onClick={() => (window.location.href = `/edit/${author.id}`)}>
+                    onClick={() => router.push(`/edit/${author.id}`)}>
                     <img src="/edit.svg" alt="Edit" className="size-5" />
                 </button>
                 <button
