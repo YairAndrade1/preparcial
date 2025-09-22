@@ -9,7 +9,7 @@ type AuthorContextType = {
     error: string | null;
     createAuthor: (a: Omit<Author, "id">) => Promise<Author>;
     updateAuthor: (id: number, a: Omit<Author, "id">) => Promise<Author>;
-    deleteAuthor: (id: number) => Promise<void>
+    deleteAuthor: (id: number) => boolean;
 }
 
 const AuthorsContext = createContext<AuthorContextType | null>(null);
