@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aplicación de Gestión de Autores
 
-## Getting Started
+## Arquitectura de la Solución
 
-First, run the development server:
+Esta aplicación está construida con **Next.js 14** utilizando el App Router y **TypeScript** para el tipado estático. La arquitectura sigue un patrón de gestión de estado centralizado mediante **React Context API** que permite compartir el estado de los autores entre todos los componentes de la aplicación. La aplicación implementa un enfoque "combinado" donde los datos iniciales se cargan desde la API externa, pero todas las operaciones CRUD (crear, actualizar, eliminar, favoritos) se manejan localmente en memoria para mejorar la experiencia del usuario. Inicialmente, el CRUD hacia llamados a la API, pero por reglas de negocio de la API se mudo a esta implementación, la razón es que para eliminar un autor por ejemplo, este tienen dependencias con libros y simplemente daba error.
 
+El proyecto está organizado con una separación clara de responsabilidades: componentes reutilizables en `/components`, lógica en `/lib` donde se definio el tipo de autor, se creo el custom hook de useAuthor donde se hace el llamado a la API pero tambien donde se definen las operaciones CRUD, tambien tenemos el authorsContext que es lo que nos permite proveer el contexto a los demas children,  y páginas en `/app` siguiendo la estructura del App Router de Next.js, aca nos encontramos con la page.tsx que redirige a authors/page.tsx, donde se listan los autores, tambien tenemos una pagina de error, durante el parcial se desarrollo la de favoritos/page.tsx que lista los autores marcados en fav. Tambien tenemos el create/page.tsx donde se renderiza el componente de form. Al igual que la de edit que reutiliza el form de autores. Los componentes que se crearon fueron: authorCard y authorForm, card para poder ver la lista de los autores y el form para poder crear autores, se reutilizo el componente de card para poder lista los autores favoritos. 
+
+## Parte B - Pruebas Unitarias
+
+### Opción desarrollada: Pruebas Unitarias con Jest y React Testing Library
+
+Se implementaron pruebas unitarias completas para el componente AuthorForm que cubren:
+
+- **Renderizado de formulario**: Verificación de que todos los campos (name, image, birthDate, description) se renderizan correctamente usando selectores semánticos.
+- **Validación de envío**: Comprobación de que el formulario previene el envío con campos vacíos, mantiene el botón deshabilitado apropiadamente, y muestra mensajes de error correctos.
+
+### Cómo validar las pruebas
+
+<img width="711" height="258" alt="image" src="https://github.com/user-attachments/assets/978bbd52-8840-40ef-ab3d-c3e9af117f04" />
+
+Para correr las pruebas como se ve en la imagen, simplemente hay que usar el comando de jest. En mi caso como yo use `bun` se ejecuta desde la raiz del proyecto.
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  bun jest
 ```
+O tambien se deberia poder con npx 
+```bash
+  npx jest
+```
+## Instrucciones para Ejecutar la Aplicación
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Clonar el repositorio**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   git clone https://github.com/YairAndrade1/preparcial.git
+   cd preparcial
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Instalar dependencias**
 
-## Learn More
+   ```bash
+   npm install
+   # o si usas bun como lo hice yo
+   bun install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Ejecutar la aplicación en desarrollo**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm run dev
+   # o si usas bun
+   bun dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Abrir en el navegador**
 
-## Deploy on Vercel
+   ```text
+   http://localhost:3000
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
