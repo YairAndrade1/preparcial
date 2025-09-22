@@ -3,9 +3,18 @@ import Link from "next/link";
 import AuthorCard from "@/components/authors/authorCard";
 import { useAuthorsContext } from "@/lib/context/AuthorsContext";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function AuthorsPage() {
+    const router = useRouter();
     const { authors, loading, error } = useAuthorsContext();
+
+    useEffect(() => {
+        if (error) {
+            router.push("/error");
+        }
+    }, [error, router]);
 
     if (loading)
         return (
@@ -14,14 +23,7 @@ export default function AuthorsPage() {
             </div>
         );
 
-    if (error)
-        return (
-            <div className="mx-auto max-w-6xl px-4 py-16">
-                <p className="text-center font-medium text-red-600">
-                    Error: {error}
-                </p>
-            </div>
-        );
+    if (error) return null;
 
     if (authors.length === 0)
         return (
