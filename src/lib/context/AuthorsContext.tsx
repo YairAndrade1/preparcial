@@ -10,6 +10,8 @@ type AuthorContextType = {
     createAuthor: (a: Omit<Author, "id">) => Promise<Author>;
     updateAuthor: (id: number, a: Omit<Author, "id">) => Promise<Author>;
     deleteAuthor: (id: number) => boolean;
+    toggleFavorite: (id: number) => void;
+    getFavoriteAuthors: () => Author[];
 }
 
 const AuthorsContext = createContext<AuthorContextType | null>(null);
