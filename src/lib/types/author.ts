@@ -3,5 +3,6 @@ export interface Author {
     name: string,
     description: string, 
     image: string,
-    birthDate: string
+    birthDate: string,
+    isFavorite?: boolean
 }

@@ -60,7 +60,7 @@ export default function AuthorForm({ author }: { author?: Author }) {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g., Jane Austen"
+                    placeholder="e.g. Gabriel Garcia Marquez"
                     className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
             <div className="mb-4">

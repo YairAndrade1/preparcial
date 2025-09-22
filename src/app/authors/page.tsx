@@ -54,12 +54,22 @@ export default function AuthorsPage() {
                 <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
                     Authors
                 </h1>
-                <Link
-                    href="/create"
-                    className="inline-flex gap-2 rounded-xl bg-black px-4 py-2 text-md font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40">
-                    <img src="/add.svg" alt="Create" className="size-6" />
-                    New
-                </Link>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/favoritos"
+                        className="inline-flex gap-2 rounded-xl bg-red-500 px-4 py-2 text-md font-medium text-white hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        Favorites
+                    </Link>
+                    <Link
+                        href="/create"
+                        className="inline-flex gap-2 rounded-xl bg-black px-4 py-2 text-md font-medium text-white hover:bg-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40">
+                        <img src="/add.svg" alt="Create" className="size-6" />
+                        New
+                    </Link>
+                </div>
             </div>
             <div className="mt-6 grid grid-cols-3 gap-6 ">
                 {authors.map((a) => (
