@@ -47,16 +47,18 @@ export default function AuthorForm({ author }: { author?: Author }) {
 
     return (
         <form
+            role="form"
             onSubmit={onSubmit}
             className="mx-auto w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-xl font-semibold tracking-tight text-gray-900">
                 {isEdit ? "Edit author" : "Create author"}
             </h2>
             <div className="mb-4">
-                <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Full name
+                <label htmlFor="author-name" className="mb-1 block text-sm font-medium text-gray-700">
+                    Author's name
                 </label>
                 <input
+                    id="author-name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -64,10 +66,11 @@ export default function AuthorForm({ author }: { author?: Author }) {
                     className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
             <div className="mb-4">
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="author-image" className="mb-1 block text-sm font-medium text-gray-700">
                     Photo URL
                 </label>
                 <input
+                    id="author-image"
                     type="url"
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
@@ -75,20 +78,22 @@ export default function AuthorForm({ author }: { author?: Author }) {
                     className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
             <div className="mb-4">
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="author-birthdate" className="mb-1 block text-sm font-medium text-gray-700">
                     Birth date
                 </label>
                 <input
+                    id="author-birthdate"
                     type="date"
                     value={birthDate}
                     onChange={(e) => setBirthDate(e.target.value)}
                     className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300" />
             </div>
             <div className="mb-4">
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="author-description" className="mb-1 block text-sm font-medium text-gray-700">
                     Short bio
                 </label>
                 <textarea
+                    id="author-description"
                     rows={4}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
